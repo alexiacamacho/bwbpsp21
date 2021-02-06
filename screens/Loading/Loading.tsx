@@ -10,7 +10,6 @@ export default class LoadingScreen extends React.Component {
     await this.loadUser();
     await this.loadPOC();
     await this.context.setNavigation(this.props.navigation);
-    console.log(this.context)
 
     if (this.context.loggedIn) {
       this.navigateApp();
