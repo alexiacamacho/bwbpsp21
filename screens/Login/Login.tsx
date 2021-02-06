@@ -1,4 +1,5 @@
 import React from 'react';
+import {Alert} from 'react-native';
 import { KeyboardAvoidingView, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ImageContainer, LoginImg, LoginInput, LoginHeader, LoginButton, LoginButtonText, LoginText } from './styles';
@@ -36,14 +37,18 @@ export default class LoginScreen extends React.Component<LoginScreenProps, Login
       user: { ...UserMock },
     };
   }
-
+  
   async login(): Promise<void> {
     const user = await getUser(this.state.user);
     if (user) {
       await this.context.setUser(user);
-      this.props.navigation.navigate('App');
-    } else {
-      alert('Incorrect username or password.');
+      if ((this.state.user.uname == user.uname) && (this.state.user.password == user.password)) {
+        this.props.navigation.navigate('App');
+      }else {
+        Alert.alert('Incorrect username or password.');
+      }
+    }else {
+      Alert.alert('There is no user.');
     }
   }
 
